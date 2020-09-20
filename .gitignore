@@ -1,0 +1,11 @@
+node_modules/
+coverage/
+.history/
+.idea/
+.vscode/
+.project/
+npm-debug.log
+src/assets/index.html
+gemini/gemini-reports
+gemini/screens
+build/

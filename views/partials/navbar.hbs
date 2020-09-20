@@ -1,0 +1,21 @@
+<nav class="nav-extended">
+  <ul class="tabs tabs-transparent">
+    {{#if isHome}}
+      <li><a href="/" class="active">Главная</a></li>
+    {{else}}
+      <li><a href="/">Главная</a></li>
+    {{/if}}
+
+    {{#if isCourses}}
+      <li><a href="/courses" class="active">Курсы</a></li>
+    {{else}}
+      <li><a href="/courses">Курсы</a></li>
+    {{/if}}
+
+    {{#if isAdd}}
+     <li><a href="/add" class="active">Добавить курс</a></li>
+    {{else}}
+     <li><a href="/add">Добавить курс</a></li>
+    {{/if}}
+  </ul>
+</nav>
