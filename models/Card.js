@@ -51,9 +51,26 @@ class Card {
     const idx = card.courses.findIndex(c => c.id === id)
     const course = card.courses[idx]
 
-    // if () {
+    if (course.count === 1) {
+      // удалить
+      card.courses = card.courses.filter(c => c.id !== id)
+    } else {
+      // изменить количество
+      card.courses[idx].count--
+    }
 
-    // }
+    card.price -= course.price
+
+    return new Promise((resolve, reject) => {
+      fs.writeFile(p, JSON.stringify(card), err => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(card)
+        }
+      })
+    })
+
   }
 
 }
