@@ -11,11 +11,11 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
   // const course = new Course(req.body.title, req.body.price, req.body.image)
-  console.log(req.body)
   const course = new Course({
     title: req.body.title,
     price: req.body.price,
-    img: req.body.image
+    img: req.body.image,
+    userId: req.user // аналогично req.user._id, т.к. Schema.Types.ObjectId
   })
   
   try {
