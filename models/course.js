@@ -5,8 +5,15 @@ const course = new Schema({
     type: String,
     required: true
   },
-  price: Number,
-  img: String
+  price: {
+    type: Number,
+    required: true
+  },
+  img: String,
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
 module.exports = model('Course', course)
