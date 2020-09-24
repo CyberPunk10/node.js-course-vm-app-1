@@ -27,4 +27,26 @@ const userSchema = new Schema({
   }
 })
 
+userSchema.methods.addToCart = function (course) {
+  const items = [...this.cart.items] // clone
+  const idx = items.findIndex(c => {
+    return c.courseId.toString() === course._id.toString()
+  })
+
+  if (idx >= 0) {
+    // курс уже есть в корзине, поэтому увеличиваем count
+    items[idx].count = items[idx].count + 1
+  } else {
+    // добавляем курс в корзину
+    items.push({
+      courseId: course._id,
+      count: 1
+    })
+  }
+
+  this.cart = {items}
+
+  return this.save()
+}
+
 module.exports = model('User', userSchema)
