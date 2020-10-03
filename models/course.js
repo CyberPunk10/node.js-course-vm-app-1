@@ -16,6 +16,7 @@ const course = new Schema({
   }
 })
 
+// метод перезаписывающий _id на id для клиента
 course.method('toClient', function() {
   const course = this.toObject()
 

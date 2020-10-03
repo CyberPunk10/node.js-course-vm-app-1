@@ -17,10 +17,17 @@
     {{else}}
      <li><a href="/add">Добавить курс</a></li>
     {{/if}}
+
     {{#if isCart}}
      <li><a href="/cart" class="active">Корзина</a></li>
     {{else}}
      <li><a href="/cart">Корзина</a></li>
+    {{/if}}
+
+    {{#if isOrders}}
+     <li><a href="/orders" class="active">Заказы</a></li>
+    {{else}}
+     <li><a href="/orders">Заказы</a></li>
     {{/if}}
   </ul>
 </nav>
