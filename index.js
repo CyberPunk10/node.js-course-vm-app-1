@@ -52,6 +52,7 @@ async function start() {
       useFindAndModify: false
     })
 
+    // проверяем есть ли пользователь
     const candidate = await User.findOne()
     if(!candidate) {
       const user = new User({

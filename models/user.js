@@ -28,7 +28,7 @@ const userSchema = new Schema({
 })
 
 userSchema.methods.addToCart = function (course) {
-  const items = [...this.cart.items] // clone
+  const items = [...this.cart.items] // clone (чтобы не мутировал)
   const idx = items.findIndex(c => {
     return c.courseId.toString() === course._id.toString()
   })
@@ -50,7 +50,7 @@ userSchema.methods.addToCart = function (course) {
 }
 
 userSchema.methods.removeFromCart = function(id) {
-  let items = [...this.cart.items] // clone
+  let items = [...this.cart.items] // clone (чтобы не мутировал)
   const idx = items.findIndex(c => c.courseId.toString() === id.toString())
 
   if (items[idx].count === 1) {
