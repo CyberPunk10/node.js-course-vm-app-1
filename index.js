@@ -6,6 +6,7 @@ const exshbs = require('express-handlebars')
 const Handlebars = require('handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const session = require('express-session')
+const MongoStore = require('connect-mongodb-session')(session) // вернет fn, которую нужно вызвать, которая вернет Класс
 // routes
 const homeRoutes = require('./routes/home')
 const addRoutes = require('./routes/add')
@@ -15,13 +16,18 @@ const ordersRoutes = require('./routes/orders')
 const authRoutes = require('./routes/auth')
 // another
 const varMiddleware = require('./middleware/variables')
+const userMiddleware = require('./middleware/user')
 
 const app = express()
-
 const hbs = exshbs.create({
   defaultLayout: 'main', 
   extname: 'hbs',
   handlebars: allowInsecurePrototypeAccess(Handlebars)
+})
+const MONGODB_URI = `mongodb+srv://CyberPunk10:PFs7yix1Bh4lnaKz@cluster0.owfrf.mongodb.net/shop`
+const store = new MongoStore({
+  collection: 'sessions',
+  uri: MONGODB_URI
 })
 
 app.engine('hbs', hbs.engine)
@@ -33,9 +39,11 @@ app.use(express.urlencoded({extended: true}))
 app.use(session({
   secret: 'some secret value',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store
 }))
 app.use(varMiddleware)
+app.use(userMiddleware)
 
 app.use('/', homeRoutes)
 app.use('/add', addRoutes)
@@ -48,9 +56,7 @@ const PORT = process.env.PORT || 3000
 
 async function start() {
   try {
-    const url = `mongodb+srv://CyberPunk10:PFs7yix1Bh4lnaKz@cluster0.owfrf.mongodb.net/shop`
-    // const url = `mongodb+srv://CyberPunk10:PFs7yix1Bh4lnaKz@cluster0.owfrf.mongodb.net/shop?w=majority`
-    await mongoose.connect(url, { 
+    await mongoose.connect(MONGODB_URI, { 
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false
