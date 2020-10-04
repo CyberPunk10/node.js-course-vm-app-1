@@ -1,15 +1,20 @@
+// libs
 const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
 const exshbs = require('express-handlebars')
 const Handlebars = require('handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+const session = require('express-session')
+// routes
 const homeRoutes = require('./routes/home')
 const addRoutes = require('./routes/add')
 const coursesRoutes = require('./routes/courses')
 const cartRoutes = require('./routes/cart')
 const ordersRoutes = require('./routes/orders')
-const User = require('./models/user')
+const authRoutes = require('./routes/auth')
+// another
+const varMiddleware = require('./middleware/variables')
 
 const app = express()
 
@@ -25,22 +30,19 @@ app.set('views', 'views')
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended: true}))
-
-app.use(async (req, res, next) => {
-  try {
-    const user = await User.findById('5f6cb2496a722b59ac4f3dc1')
-    req.user = user  
-    next()  
-  } catch (error) {
-    console.log(error)
-  }
-})
+app.use(session({
+  secret: 'some secret value',
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(varMiddleware)
 
 app.use('/', homeRoutes)
 app.use('/add', addRoutes)
 app.use('/courses', coursesRoutes)
 app.use('/cart', cartRoutes)
 app.use('/orders', ordersRoutes)
+app.use('/auth', authRoutes)
 
 const PORT = process.env.PORT || 3000
 
@@ -53,17 +55,6 @@ async function start() {
       useUnifiedTopology: true,
       useFindAndModify: false
     })
-
-    // проверяем есть ли пользователь
-    const candidate = await User.findOne()
-    if(!candidate) {
-      const user = new User({
-        email: 'cyberpunk10@mail.ru',
-        name: 'cyberpunk10',
-        cart: {items: []}
-      })
-      await user.save()
-    }
 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`)
