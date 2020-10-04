@@ -1,17 +1,18 @@
-.tabs {
-  line-height: 48px;
-}
 .nav-extended {
   box-shadow: 0 2px 9px rgba(95,46,139,.27);
 }
-.card {
-  box-shadow: 0 2px 6px rgba(95,46,139,.15);
+.nav-extended .tabs {
+  line-height: 48px;
 }
 .nav-extended .tabs .active {
   border-bottom: 3px solid #fff !important;
   line-height: 45px;
   box-sizing: border-box;
   background-color: rgba(0,0,0,.1);
+}
+
+.card {
+  box-shadow: 0 2px 6px rgba(95,46,139,.15);
 }
 .price {
   font-size: 2rem;
@@ -41,4 +42,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.auth {
+  margin-top: 2rem;
 }
