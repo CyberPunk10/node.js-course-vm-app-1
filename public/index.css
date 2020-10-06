@@ -47,3 +47,12 @@
 .auth {
   margin-top: 2rem;
 }
+
+.alert {
+  padding: 1rem;
+  border-radius: .5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  background-color: rgba(255,0,0,.1);
+  color: red;
+}
