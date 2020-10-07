@@ -1,14 +1,26 @@
 .nav-extended {
   box-shadow: 0 2px 9px rgba(95,46,139,.27);
+  line-height: 48px;
+  display: flex;
+  justify-content: space-between;
 }
 .nav-extended .tabs {
   line-height: 48px;
+  justify-content: flex-end;
 }
 .nav-extended .tabs .active {
   border-bottom: 3px solid #fff !important;
   line-height: 45px;
   box-sizing: border-box;
   background-color: rgba(0,0,0,.1);
+}
+.nav-extended .brand-logo-custom {
+  height: 46px;
+  line-height: 46px;
+  white-space: nowrap;
+  font-size: 1.4rem;
+  padding-left: 1rem;
+  margin-bottom: 2px;
 }
 
 .card {
