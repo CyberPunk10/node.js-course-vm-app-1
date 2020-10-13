@@ -5,6 +5,7 @@
   justify-content: space-between;
 }
 .nav-extended .tabs {
+  display: flex;
   line-height: 48px;
   justify-content: flex-end;
 }
