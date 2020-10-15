@@ -1,12 +1,15 @@
 const { Router } = require('express')
 const bcrypt = require('bcryptjs')
 const crypto = require('crypto')
+const { validationResult } = require('express-validator')
+// const { body, validationResult } = require('express-validator/check')
 // const nodemailer = require('nodemailer')
 const sendpulse = require('sendpulse-api')
 const keys = require('../keys')
 const regEmail = require('../emails/registration')
 const resetEmail = require('../emails/reset')
 const User = require('../models/user')
+const { registerValidators } = require('../utils/validators')
 const router = Router()
 
 const API_USER_ID = keys.SENDPULSE_API_ID
@@ -85,32 +88,31 @@ router.post('/login', async (req, res) => {
 })
 
 // регистрация
-router.post('/register', async (req, res) => {
+router.post('/register', registerValidators, async (req, res) => {
   try {
-    const {email, password, repeat, name} = req.body
-    const candidate = await User.findOne({email})
+    const {email, password, name} = req.body
 
-    if (candidate) {
-      // проверяем есть ли пользователь с таким email
-      req.flash('registerError', 'Пользователь с таким email уже существует')
-      res.redirect('/auth/login#register')
-    } else {
-      // если нет, то создаем его
-      const hashPassword = await bcrypt.hash(password, 10)
-      const user = new User({
-        email, name, password: hashPassword, cart: {items: []}
-      })
-      await user.save()
-      // await transporter.sendMail(regEmail(email))
-      // await sendpulse.init(API_USER_ID,API_SECRET,TOKEN_STORAGE,function() {
-      //   sendpulse.smtpSendMail(answerGetter, regEmail(email))
-      // })
-      // const emailObj = regEmail(email)
-      // sendpulse.smtpSendMail(answerGetter, emailObj)
-      // const emailObj = regEmail()
-      // sendpulse.smtpSendMail(answerGetter, emailObj)
-      res.redirect('/auth/login#login')
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      req.flash('registerError', errors.array()[0].msg)
+      return res.status(422).redirect('/auth/login#register')
     }
+
+    // создаем пользователя, раз прошли валидацию
+    const hashPassword = await bcrypt.hash(password, 10)
+    const user = new User({
+      email, name, password: hashPassword, cart: {items: []}
+    })
+    await user.save()
+    // await transporter.sendMail(regEmail(email))
+    // await sendpulse.init(API_USER_ID,API_SECRET,TOKEN_STORAGE,function() {
+    //   sendpulse.smtpSendMail(answerGetter, regEmail(email))
+    // })
+    // const emailObj = regEmail(email)
+    // sendpulse.smtpSendMail(answerGetter, emailObj)
+    // const emailObj = regEmail()
+    // sendpulse.smtpSendMail(answerGetter, emailObj)
+    res.redirect('/auth/login#login')
   } catch (error) {
     console.log(error)
   }
