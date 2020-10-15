@@ -2,21 +2,21 @@
 {{#if error}}
   <p class="alert">{{error}}</p>
 {{/if}}
-<form action="/add" method="POST">
+<form action="/add" method="POST" novalidate>
   <div class="input-field">
-    <input id="title" name="title" type="text" class="validate" required>
+    <input id="title" name="title" type="text" class="validate" required value="{{data.title}}">
     <label for="title">Название курса</label>
     <span class="helper-text" data-error="Введите название" data-success="right"></span>
   </div>
 
   <div class="input-field">
-    <input id="price" name="price" type="number" class="validate" required min="1">
+    <input id="price" name="price" type="number" class="validate" required min="1" value="{{data.price}}">
     <label for="price">Цена курса</label>
     <span class="helper-text" data-error="Введите цену" data-success="right"></span>
   </div>
   
   <div class="input-field">
-    <input id="img" name="image" type="text" class="validate" required>
+    <input id="img" name="image" type="text" class="validate" required value="{{data.image}}">
     <label for="img">URL картинки</label>
     <span class="helper-text" data-error="Введите URL картинки" data-success="right"></span>
   </div>

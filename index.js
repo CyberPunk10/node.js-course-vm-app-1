@@ -79,3 +79,5 @@ start()
 
 // myfocus.com
 
+// 1. убрать из форм атрибут novalidation
+

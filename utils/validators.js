@@ -54,8 +54,11 @@ exports.addCourseValidators = [
     .withMessage('Минимальная длина названия 3 символа'),
 
   body('price')
-    .trim(),
-
-  body('image')
     .trim()
+    .isNumeric()
+    .withMessage('Введите корректную цену'),
+
+  body('image', 'Введите корректный URL картинки')
+    .trim()
+    .isURL()
 ]
