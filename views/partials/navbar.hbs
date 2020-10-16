@@ -27,10 +27,16 @@
         <li><a href="/cart">Корзина</a></li>
       {{/if}}
 
-      {{#if isOrders}}
+      {{#if isCourses}}
         <li><a href="/orders" class="active">Заказы</a></li>
       {{else}}
         <li><a href="/orders">Заказы</a></li>
+      {{/if}}
+
+      {{#if isProfile}}
+        <li><a href="/profile" class="active">Профиль</a></li>
+      {{else}}
+        <li><a href="/profile">Профиль</a></li>
       {{/if}}
 
       <li><a href="/auth/logout">Выйти</a></li>
