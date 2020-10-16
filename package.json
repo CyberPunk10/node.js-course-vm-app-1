@@ -1,5 +1,5 @@
 {
-  "name": "node-js-practic",
+  "name": "node-js-vladilen-course",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
     "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^2.4.1",
     "csurf": "^1.11.0",
@@ -20,11 +21,11 @@
     "express-handlebars": "^5.1.0",
     "express-session": "^1.17.1",
     "express-validator": "^6.6.1",
+    "helmet": "^4.1.1",
     "mongoose": "^5.10.6",
     "multer": "^1.4.2",
     "nodemailer": "^6.4.13",
-    "sendpulse-api": "^1.1.4",
-    "uuid": "^8.3.0"
+    "sendpulse-api": "^1.1.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

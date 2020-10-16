@@ -9,3 +9,4 @@ src/assets/index.html
 gemini/gemini-reports
 gemini/screens
 build/
+keys/keys.dev.js
