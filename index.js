@@ -4,6 +4,8 @@ const path = require('path')
 const csrf = require('csurf')
 const flash = require('connect-flash')
 const mongoose = require('mongoose')
+// const helmet = require('helmet')
+const compression = require('compression')
 const exshbs = require('express-handlebars')
 const Handlebars = require('handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
@@ -52,6 +54,8 @@ app.use(session({
 app.use(fileMiddleware.single('avatar')) // после определения session и до csrf (порядок важен)
 app.use(csrf())
 app.use(flash())
+// app.use(helmet())
+app.use(compression())
 app.use(varMiddleware)
 app.use(userMiddleware)
 
@@ -90,5 +94,6 @@ start()
 // 1. убрать из форм атрибут novalidation
 // 2. настроить почту (пройти заново 6 part)
 // 3. сделать загрузку файлов в профиле (part 7, 8-9 lessons)
-// 4. 
+// 4. part 8, 2/5 - helmet - при подключении ломается приложение, не разбирался, иду без него
+// 5. после deploy на heroku сайт не отображается полностью, не разбирался
 
