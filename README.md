@@ -5,5 +5,5 @@
   - **Комментарий:** 
   - **Курс "NodeJS Полное руководство:"** [Ссылка на сайт](https://webformyself.com/node/ "перейти на сайт")
   - **Репозиторий:** [Ссылка на репозиторий](https://github.com/CyberPunk10/FSD-Frontend-hotel)
-  - **Deploy на Heroku:** [Deploy на Heroku](https://nodejs-course-vladilen-minin.herokuapp.com/)
+  - **[Deploy на Heroku](https://nodejs-course-vladilen-minin.herokuapp.com/)**
 
