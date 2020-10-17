@@ -1,6 +1,4 @@
 ## node.js-vladilen-course
-
-### [node.js-vladilen-course](node.js-vladilen-course/pablic/app.js "перейти на сайт")
   - **Технологии:** NodeJS, hbs, express, MongoDB
   - **Комментарий:** 
   - [Ссылка на Курс "NodeJS Полное руководство](https://webformyself.com/node/ "перейти на сайт")
