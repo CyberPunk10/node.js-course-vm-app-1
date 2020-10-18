@@ -1,31 +1,136 @@
-.nav-extended {
-  box-shadow: 0 2px 9px rgba(95,46,139,.27);
-  line-height: 48px;
-  display: flex;
-  justify-content: space-between;
+/* общие */
+:root {
+  --header-height: 4.5rem;
 }
-.nav-extended .tabs {
-  display: flex;
-  line-height: 48px;
-  justify-content: flex-end;
+
+body {
+  background: #000814;
+  color: #fff;
 }
-.nav-extended .tabs .active {
-  border-bottom: 3px solid #fff !important;
-  line-height: 45px;
-  box-sizing: border-box;
-  background-color: rgba(0,0,0,.1);
+
+input, input:-internal-autofill-selected {
+  background-color: transparent !important;
+  color: #fff
 }
-.nav-extended .brand-logo-custom {
-  height: 46px;
-  line-height: 46px;
-  white-space: nowrap;
-  font-size: 1.4rem;
-  padding-left: 1rem;
-  margin-bottom: 2px;
+
+.bg-container {
+  min-height: calc(100vh - var(--header-height));
+  background: url(../images/pattern-light.svg) repeat;
+  padding-bottom: 3rem;
+}
+
+h1 {
+  margin-top: var(--header-height);
+  margin-bottom: 3rem;
+  padding-top: 4.5rem;
+  font-family: 'Neucha', cursive, sans-serif;
+  font-size: 4.5rem;
+  letter-spacing: 5px;
+  background: linear-gradient(264.51deg, #FFE580 4.38%, #FF7571 11.51%, #FF7270 25.06%, #EA5DAD 36.04%, #C2A0FD 47.63%, #9867F0 59.03%, #3BF0E4 69.96%, #33CE43 83.74%, #B2F4B6 95.62%);
+  background-position: 58% 50%;
+  background-size: 500%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-animation: gradient-shift 30s ease infinite;
+  animation: gradient-shift 30s ease infinite;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 58% 50%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  75% {
+    background-position: 10% 50%;
+  }
+  to {
+    background-position: 58% 50%;
+  }
+}
+
+.row {
+  background: linear-gradient(104.51deg, #3a4466 4.38%, #202a4b 95.62%);
+  /* background-color: #09111D; */
+  padding: .5rem 1.5rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 20px 90px rgba(37,44,68,.8);
 }
 
 .card {
-  box-shadow: 0 2px 6px rgba(95,46,139,.15);
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.text-gradient-purple {
+  background: linear-gradient(87.54deg, #9867F0 -6.8%, #ED4E50 84.14%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* /общие */
+
+.site-header {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background: #000814;
+  border-bottom: 1px solid #18182b;
+  transition: margin-top .4s ease-in-out;
+  box-sizing: border-box;
+}
+.site-header:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -1px;
+  left: 0;
+  background: linear-gradient(87.54deg, #9867F0 -6.8%, #ED4E50 84.14%);
+  z-index: -10;
+  transform: translate3d(0, 0, 0);
+  transition: background .4s ease-in-out;
+}
+
+nav.nav-extended {
+  box-shadow: 0 2px 9px rgba(95,46,139,.27);
+  height: var(--header-height);
+  line-height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+}
+.nav-extended a {
+  color: #5f6885
+}  
+nav.nav-extended .tabs {
+  display: flex;
+  height: var(--header-height);
+  line-height: var(--header-height);
+  justify-content: flex-end;
+}
+.nav-extended .tabs .active {
+  border-bottom: 3px solid #ED4E50 !important;
+  line-height: calc(var(--header-height) - 3px);
+  box-sizing: border-box;
+  color: #ED4E50;
+}
+.nav-extended .brand-logo-custom {
+  height: calc(var(--header-height) - 2px);
+  line-height: calc(var(--header-height) - 2px);
+  white-space: nowrap;
+  font-size: 1.8rem;
+  padding-left: 1rem;
+  margin-bottom: 2px;
+}
+nav ul a:hover {
+  background-color: rgba(152, 103, 240, .1);
+  color: #ED4E50
 }
 .price {
   font-size: 2rem;
@@ -57,8 +162,20 @@
   justify-content: space-between;
 }
 
-.auth {
-  margin-top: 2rem;
+.tabs.tabs-auth {
+  background: transparent;
+  margin-bottom: 1rem;
+}
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+  background-color: transparent;
+  outline: none;
+}
+.tabs .tab a:hover {
+  background-color: transparent;
+  color: #9867F0;
+}
+.tabs .indicator {
+  background-color: #ED4E50;
 }
 
 .alert {

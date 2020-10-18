@@ -1,5 +1,5 @@
-<nav class="nav-extended">
-  <a href="/" class="brand-logo-custom">Магазин курсов</a>
+<nav class="nav-extended site-header">
+  <a href="/" class="brand-logo-custom text-gradient-purple">Магазин курсов</a>
   <ul class="tabs tabs-transparent">
     {{#if isHome}}
       <li><a href="/" class="active">Главная</a></li>
@@ -27,7 +27,7 @@
         <li><a href="/cart">Корзина</a></li>
       {{/if}}
 
-      {{#if isCourses}}
+      {{#if isOrders}}
         <li><a href="/orders" class="active">Заказы</a></li>
       {{else}}
         <li><a href="/orders">Заказы</a></li>
