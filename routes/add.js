@@ -14,6 +14,7 @@ router.get('/', auth, (req, res) => {
 
 router.post('/', auth, addCourseValidators, async (req, res) => {
   const errors = validationResult(req)
+  console.log(errors)
   if (!errors.isEmpty()) {
     return res.status(422).render('add', {
       title: 'Добавить курс',
@@ -22,16 +23,16 @@ router.post('/', auth, addCourseValidators, async (req, res) => {
       data: {
         title: req.body.title,
         price: req.body.price,
-        img: req.body.image,
+        img: req.body.img,
       }
     })
   }
 
-  // const course = new Course(req.body.title, req.body.price, req.body.image)
+  // const course = new Course(req.body.title, req.body.price, req.body.img)
   const course = new Course({
     title: req.body.title,
     price: req.body.price,
-    img: req.body.image,
+    img: req.body.img,
     userId: req.user // аналогично req.user._id, т.к. Schema.Types.ObjectId
   })
   

@@ -50,19 +50,17 @@ h1 {
     background-position: 58% 50%;
   }
 }
-
-.row {
-  background: linear-gradient(104.51deg, #3a4466 4.38%, #202a4b 95.62%);
-  /* background-color: #09111D; */
-  padding: .5rem 1.5rem 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 20px 90px rgba(37,44,68,.8);
-}
-
 .card {
   background-color: transparent;
   box-shadow: none;
   border: none;
+}
+.bg-card {
+  background-color: #3a4466;
+  background: linear-gradient(104.51deg, #3a4466 4.38%, #202a4b 95.62%);
+  padding: .5rem 1.5rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 20px 90px rgba(37,44,68,.8);
 }
 
 .text-gradient-purple {
@@ -72,6 +70,10 @@ h1 {
 }
 
 /* /общие */
+
+
+
+/* header */
 
 .site-header {
   position: fixed;
@@ -92,34 +94,50 @@ h1 {
   height: 1px;
   bottom: -1px;
   left: 0;
-  background: linear-gradient(87.54deg, #9867F0 -6.8%, #ED4E50 84.14%);
+  /* background: linear-gradient(87.54deg, #9867F0 -6.8%, #ED4E50 84.14%); */
   z-index: -10;
   transform: translate3d(0, 0, 0);
   transition: background .4s ease-in-out;
 }
 
 nav.nav-extended {
-  box-shadow: 0 2px 9px rgba(95,46,139,.27);
+  box-shadow: 0 0 120px rgba(95,46,139,.27);
   height: var(--header-height);
   line-height: var(--header-height);
   display: flex;
   justify-content: space-between;
 }
-.nav-extended a {
-  color: #5f6885
-}  
+
 nav.nav-extended .tabs {
   display: flex;
   height: var(--header-height);
   line-height: var(--header-height);
   justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-extended .tabs a {
+  color: #5f6885;
+  border: 1px solid transparent;
+  /* border-radius: 10px; */
+  margin-right: .5rem;
+  line-height: calc(var(--header-height) - 2px);
+  /* box-sizing: border-box; */
+  transition: all linear .1s;
+}
+.nav-extended .tabs a:hover {
+  color: #ED4E50;
+  color: #9867F0;
+
+  /* border: 1px solid #ED4E50; */
+  border-bottom: 1px solid #9867F0;
+  /* box-shadow: 0 0 40px rgba(95,46,139,.27), inset 0 0 9px rgba(95,46,139,.27); */
+
 }
 .nav-extended .tabs .active {
-  border-bottom: 3px solid #ED4E50 !important;
-  line-height: calc(var(--header-height) - 3px);
-  box-sizing: border-box;
   color: #ED4E50;
 }
+
 .nav-extended .brand-logo-custom {
   height: calc(var(--header-height) - 2px);
   line-height: calc(var(--header-height) - 2px);
@@ -128,10 +146,63 @@ nav.nav-extended .tabs {
   padding-left: 1rem;
   margin-bottom: 2px;
 }
-nav ul a:hover {
-  background-color: rgba(152, 103, 240, .1);
-  color: #ED4E50
+
+/* /header */
+
+
+
+/* auth */
+
+.auth {
+  margin-top: var(--header-height)
 }
+
+.auth .row {
+  padding: 0;
+  padding-top: 3.5rem;
+}
+
+.auth .row #login,
+.auth .row #register {
+  overflow: hidden;
+  padding: 1rem 2rem 2rem;
+}
+
+.auth .tabs {
+  background: transparent;
+  margin-bottom: 1rem;
+}
+
+.auth .tabs .tab a {
+  background-color: transparent;
+  color: #3a4466;
+}
+
+.auth .tabs .tab a:hover {
+  background-color: transparent;
+  color: #9867F0;
+}
+
+.auth .tabs .tab a.active {
+  color: #ED4E50;
+}
+
+.auth .tabs .tab a:focus,
+.auth .tabs .tab a:focus.active {
+  background-color: transparent;
+  outline: none;
+}
+
+.tabs.tabs-auth .indicator {
+  background-color: #ED4E50;
+  border-radius: 3px;
+}
+
+/* /auth */
+
+
+
+
 .price {
   font-size: 2rem;
 }
@@ -162,32 +233,44 @@ nav ul a:hover {
   justify-content: space-between;
 }
 
-.tabs.tabs-auth {
-  background: transparent;
-  margin-bottom: 1rem;
-}
-.tabs .tab a:focus, .tabs .tab a:focus.active {
-  background-color: transparent;
-  outline: none;
-}
-.tabs .tab a:hover {
-  background-color: transparent;
-  color: #9867F0;
-}
-.tabs .indicator {
-  background-color: #ED4E50;
-}
-
 .alert {
   padding: 1rem;
   border-radius: .5rem;
   text-align: center;
   margin-bottom: 1rem;
-  background-color: rgba(255,0,0,.1);
-  color: red;
+  background: rgba(255,255,255, 0.05);
+  /* background: linear-gradient(50.51deg, #3a4466 4.38%, #202a4b 95.62%); */
+
+  box-shadow: 0 0 40px rgba(37,44,68,.8);
+
+  color: #ED4E50;
 }
 
 .avatar {
   width: 300px;
   height: auto;
 }
+
+
+/* courses */
+
+.row.row-courses {
+  background: transparent;
+  box-shadow: none;
+  /* background-color: #09111D; */
+  padding: 0;
+}
+.card {
+  overflow: hidden;
+}
+.card-image {
+  overflow: hidden;
+  /* max-height: 15rem; */
+
+}
+
+/* .card-image img {
+
+} */
+
+/* /courses */

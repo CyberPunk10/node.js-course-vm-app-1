@@ -41,13 +41,14 @@ router.get('/login', async (req, res) => {
   res.render('auth/login', {
     title: 'Авторизация',
     isLogin: true,
+    isTabLogin: true,
     loginError: req.flash('loginError'),
     registerError: req.flash('registerError')
   })
 })
 
 router.get('/logout', async (req, res) => {
-  // req.session.isAuthenticated = false
+  req.session.isAuthenticated = false
   req.session.destroy(() => { // после очищения сессии вызывается callback функция,
     res.redirect('/auth/login#login') // которая, в данном случае, делает редирект
   })
@@ -57,10 +58,20 @@ router.get('/logout', async (req, res) => {
 router.post('/login', loginValidators, async (req, res) => {
   try {
     const {email, password} = req.body
-    const errors = validationResult(req)
+    const errors = validationResult(req) 
+
+    // если форма не валидна, то показываем ошибку и выходим
     if (!errors.isEmpty()) {
-      req.flash('loginError', errors.array()[0].msg)
-      return res.status(422).redirect('/auth/login#login')
+      // req.flash('loginError', errors.array()[0].msg)
+      return res.status(422).render('auth/login', {
+        title: 'Авторизация',
+        isLogin: true,
+        isTabLogin: true,
+        loginError: errors.array()[0].msg,
+        data: {
+          email: req.body.email,
+        }
+      })
     }
     
     const candidate = await User.findOne({email})
@@ -78,13 +89,30 @@ router.post('/login', loginValidators, async (req, res) => {
           res.redirect('/')
         })
       } else {
-        req.flash('loginError', 'Неверный пароль')
-        res.redirect('/auth/login#login')
+        // req.flash('loginError', 'Неверный пароль')
+        // res.redirect('/auth/login#login')
+        res.status(422).render('auth/login', {
+          title: 'Авторизация',
+          isLogin: true,
+          isTabLogin: true,
+          loginError: 'Неверный пароль',
+          data: {
+            email: req.body.email,
+          }
+        })
       }
 
     } else {
-      req.flash('loginError', 'Такого пользователя не существует')
-      res.redirect('/auth/login#login')
+      // req.flash('loginError', 'Такого пользователя не существует')
+      res.status(422).render('auth/login', {
+        title: 'Авторизация',
+        isLogin: true,
+        isTabLogin: true,
+        loginError: 'Такого пользователя не существует',
+        data: {
+          email: req.body.email,
+        }
+      })
     }
 
   } catch (error) {
@@ -98,8 +126,18 @@ router.post('/register', registerValidators, async (req, res) => {
     const {email, password, name} = req.body
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      req.flash('registerError', errors.array()[0].msg)
-      return res.status(422).redirect('/auth/login#register')
+      // req.flash('registerError', errors.array()[0].msg)
+      // return res.status(422).redirect('/auth/login#register')
+      return res.status(422).render('auth/login', {
+        title: 'Авторизация',
+        isLogin: true,
+        isTabLogin: false,
+        registerError: errors.array()[0].msg,
+        data: {
+          email: req.body.email,
+          name: req.body.name
+        }
+      })
     }
 
     // создаем пользователя, раз прошли валидацию
@@ -116,7 +154,19 @@ router.post('/register', registerValidators, async (req, res) => {
     // sendpulse.smtpSendMail(answerGetter, emailObj)
     // const emailObj = regEmail()
     // sendpulse.smtpSendMail(answerGetter, emailObj)
-    res.redirect('/auth/login#login')
+
+    // res.redirect('/auth/login#login')
+    //сразу после регистрации авторизовываемся
+    const candidate = await User.findOne({email})
+    req.session.user = candidate
+    req.session.isAuthenticated = true
+    req.session.save(err => {
+      if (err) {
+        throw err
+      }
+      return res.redirect('/')
+    })
+    
   } catch (error) {
     console.log(error)
   }
@@ -210,4 +260,9 @@ router.post('/password', async (req, res) => {
   }
 })
 
+
+
 module.exports = router
+
+
+
