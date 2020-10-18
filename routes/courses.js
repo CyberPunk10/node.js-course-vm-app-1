@@ -10,12 +10,13 @@ function isOwner(course, req) {
   return course.userId.toString() === req.user._id.toString()
 }
 
+// страница с курсами
 router.get('/', async (req, res) => {
   try {
     const courses = await Course.find()
-      .populate('userId', 'email name')
-      .select('price title img')
-  
+    .populate('userId', 'email name')
+    .select('price title img')
+    
     res.render('courses', {
       title: 'Курсы',
       isCourses: true,
@@ -27,6 +28,7 @@ router.get('/', async (req, res) => {
   }
 })
 
+// страница курса (btn 'открыть курс')
 router.get('/:id', async (req, res) => {
   try {
     const course = await Course.findById(req.params.id)
@@ -41,6 +43,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+// страница редактирования курса
 router.get('/:id/edit', auth, async (req, res) => {
   if (!req.query.allow) {
     return res.redirect('/')
@@ -55,6 +58,7 @@ router.get('/:id/edit', auth, async (req, res) => {
 
     res.render('course-edit', {
       title: `Редактировать ${course.title}`,
+      error: req.flash('error'),
       course
     })
   } catch (error) {
@@ -62,17 +66,17 @@ router.get('/:id/edit', auth, async (req, res) => {
   }
 })
 
+// без страницы - обработка запроса редактирования по кнопке 'Сохранить изменения'
 router.post('/edit', auth, addCourseValidators, async (req, res) => {
   const errors = validationResult(req)
   const {id} = req.body
 
   if (!errors.isEmpty()) {
-    // вместо перерисовки делаем редирект, но тогда надо придумать как передать errors
+    req.flash('error', errors.array()[0].msg)
     return res.status(422).redirect(`/courses/${id}/edit?allow=true`)
   }
    
   try {
-    // const {id} = req.body
     delete req.body.id // в Mongo DB id не передаем
     const course = await Course.findById(id)
     if (!isOwner(course, req)) {
@@ -87,6 +91,7 @@ router.post('/edit', auth, addCourseValidators, async (req, res) => {
   }
 })
 
+// без страницы - просто удаление курса с редиректом на страницу с курсами
 router.post('/remove', auth, async (req, res) => {
   try {
     await Course.deleteOne({ _id: req.body.id, userId: req.user._id })

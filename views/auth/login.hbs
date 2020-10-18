@@ -1,21 +1,26 @@
-<h1>Войти в магазин</h1>
 <div class="auth">
-  <div class="col s12">
-    <ul class="tabs tabs-auth">
-      <li class="tab col s6"><a class="active" href="#login">Войти</a></li>
-      <li class="tab col s6"><a href="#register">Регистрация</a></li>
-    </ul>
-  </div>
-
   <div class="row">
-    <div id="login" class="col s6 offset-s3">
+
+    <div class="col s6 offset-s3">
+      <ul class="tabs tabs-auth">
+        {{#if isTabLogin}}
+          <li class="tab col s6"><a class="active" href="#login">Войти</a></li>
+          <li class="tab col s6"><a href="#register">Регистрация</a></li>
+        {{else}}
+          <li class="tab col s6"><a href="#login">Войти</a></li>
+          <li class="tab col s6"><a <a class="active" href="#register">Регистрация</a></li>
+        {{/if}}
+      </ul>
+    </div>
+
+    <div id="login" class="col s6 offset-s3 bg-card">
       <h4>Войти в магазин</h4>
       {{#if loginError}}
         <p class="alert">{{loginError}}</p>
       {{/if}}
       <form action="/auth/login" method="POST">
         <div class="input-field">
-          <input id="email" name="email" type="email" class="validate" required>
+          <input id="email" name="email" type="email" class="validate" required value="{{data.email}}">
           <label for="email">Email</label>
           <span class="helper-text" data-error="Введите Email" data-success="right"></span>
         </div>
@@ -34,20 +39,20 @@
       </form>
     </div>
 
-    <div id="register" class="col s6 offset-s3">
+    <div id="register" class="col s6 offset-s3 bg-card">
       <h4>Создать аккаунт</h4>
       {{#if registerError}}
         <p class="alert">{{registerError}}</p>
       {{/if}}
       <form action="/auth/register" method="POST">
         <div class="input-field">
-          <input id="remail" name="email" type="email" class="validate" required>
+          <input id="remail" name="email" type="email" class="validate" required value="{{data.email}}">
           <label for="remail">Email</label>
           <span class="helper-text" data-error="Введите Email" data-success="right"></span>
         </div>
 
         <div class="input-field">
-          <input id="name" name="name" type="text" class="validate">
+          <input id="name" name="name" type="text" class="validate" value="{{data.name}}">
           <label for="name">Ваше имя</label>
           <span class="helper-text" data-error="Введите имя" data-success="right"></span>
         </div>
