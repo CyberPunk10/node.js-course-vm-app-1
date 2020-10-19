@@ -5,7 +5,7 @@
 
 body {
   background: #000814;
-  color: #fff;
+  color: #B5BFD2;
 }
 
 input, input:-internal-autofill-selected {
@@ -274,3 +274,10 @@ nav.nav-extended .tabs {
 } */
 
 /* /courses */
+
+
+/* media */
+@media (max-width: 576px) {
+  /* #sidebar {display: none;} */
+}
+/* /media */
